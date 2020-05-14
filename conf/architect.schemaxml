@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="utf8" collation="utf8_general_ci">attend</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="tab_attend" view="colnames">
+<left>608</left>
+<top>38</top>
+<width>149</width>
+<height>246</height>
+<sql_create_table>CREATE TABLE `tab_attend` (
+  `meetingid` int(11) DEFAULT NULL,
+  `staffid` char(10) DEFAULT NULL,
+  `arrivaltime` datetime NOT NULL,
+  `islate` char(4) DEFAULT NULL,
+  KEY `attend_meetingid_fk` (`meetingid`),
+  KEY `attend_staffid_fk` (`staffid`),
+  CONSTRAINT `attend_meetingid_fk` FOREIGN KEY (`meetingid`) REFERENCES `tab_meeting` (`meetingid`),
+  CONSTRAINT `attend_staffid_fk` FOREIGN KEY (`staffid`) REFERENCES `tab_staff` (`staffid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="tab_dept" view="colnames">
+<left>485</left>
+<top>336</top>
+<width>150</width>
+<height>209</height>
+<sql_create_table>CREATE TABLE `tab_dept` (
+  `deptid` int(11) NOT NULL AUTO_INCREMENT,
+  `deptname` varchar(20) NOT NULL,
+  `deptintro` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`deptid`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="tab_meeting" view="colnames">
+<left>881</left>
+<top>35</top>
+<width>152</width>
+<height>258</height>
+<sql_create_table>CREATE TABLE `tab_meeting` (
+  `meetingid` int(11) NOT NULL AUTO_INCREMENT,
+  `starttime` datetime NOT NULL,
+  `chairman` varchar(20) NOT NULL,
+  `topic` varchar(100) NOT NULL,
+  `attenders` varchar(100) NOT NULL,
+  `remarks` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`meetingid`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="tab_post" view="colnames">
+<left>52</left>
+<top>44</top>
+<width>141</width>
+<height>240</height>
+<sql_create_table>CREATE TABLE `tab_post` (
+  `postid` int(11) NOT NULL AUTO_INCREMENT,
+  `postname` varchar(20) NOT NULL,
+  `postintro` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`postid`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="tab_staff" view="colnames">
+<left>317</left>
+<top>44</top>
+<width>145</width>
+<height>243</height>
+<sql_create_table>CREATE TABLE `tab_staff` (
+  `staffid` char(10) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `gender` char(2) NOT NULL,
+  `phone` char(18) DEFAULT NULL,
+  `deptid` int(11) DEFAULT NULL,
+  `postid` int(11) DEFAULT NULL,
+  `syslevel` int(2) NOT NULL,
+  PRIMARY KEY (`staffid`),
+  KEY `staff_deptid_fk` (`deptid`),
+  KEY `staff_postid_fk` (`postid`),
+  CONSTRAINT `staff_deptid_fk` FOREIGN KEY (`deptid`) REFERENCES `tab_dept` (`deptid`),
+  CONSTRAINT `staff_postid_fk` FOREIGN KEY (`postid`) REFERENCES `tab_post` (`postid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>
